@@ -7,12 +7,13 @@ pipeline {
             }
         }
         stage('Upload to AWS') {
-            steps {
-                withAWS(region:'us-east-1',credentials:'aws-credentials') {
-		        sh 'echo "Hello AWS"'
-                s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'s3ndakena')
+               steps {
+                  withAWS(region:'us-east-1',credentials:'aws-credentials') {
+		                   sh 'echo "Hello AWS"'
+                  s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'s3ndakena')
                 }
             }
         }
     }
 }
+
