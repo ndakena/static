@@ -13,7 +13,7 @@ pipeline {
                      echo "Here is multiline shell steps"
                      ls -lah
                  '''
-                  withAWS(region:'us-east-1',credentials:'aws-credentials') {
+                  withAWS(region:'us-east-1',credentials:'aws-static') {
                   sh 'echo "Using AWS credentials to upload to S3"'
                       s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'s3ndakena')
                   }
