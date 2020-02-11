@@ -1,18 +1,21 @@
 pipeline {
     agent any
-
     stages {
-        stage('Build') {
+        stage('Upload to AWS') {
             steps {
-                sh 'echo "Hellow World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                    '''
-                withAWS(region:'eu-west-1') {
-                      // do something
-                         }
+                withAWS(region:'us-east-1',credentials:'aws-credentials') {
+		        sh 'echo "Hello World with AWS"'
+                s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'ndakenas3')
+                }
             }
         }
     }
 }
+
+
+/*
+/*	 stage('Lint HTML') {
+/*            steps {
+/*                sh 'tidy -q -e index.html'
+ /*           }
+ /*       }
